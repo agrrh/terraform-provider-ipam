@@ -4,8 +4,6 @@
 package provider
 
 import (
-	// "os"
-	// "log"
 	"context"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
