@@ -1,3 +1,5 @@
-provider "scaffolding" {
-  # example configuration here
+provider "ipam" {
+  alias = "lan"
+
+  file = "lan.ipam.json"
 }

@@ -2,8 +2,8 @@
 schema_version = 1
 
 project {
-  license        = "MPL-2.0"
-  copyright_year = 2021
+  license        = "WTFPL"
+  copyright_year = 2023
 
   header_ignore = [
     # examples used within documentation (prose)
