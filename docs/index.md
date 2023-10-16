@@ -14,9 +14,7 @@ description: |-
 
 ```terraform
 provider "ipam" {
-  alias = "lan"
-
-  file = "lan.ipam.json"
+  file = "default.ipam.json"
 }
 ```
 

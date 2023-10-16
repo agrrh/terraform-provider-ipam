@@ -13,25 +13,13 @@ An IPAM Allocation represents an sub-ranges from previously defined IP Pool
 ## Example Usage
 
 ```terraform
+resource "ipam_pool" "home" {
+  cidr = "10.0.0.0/8"
+}
+
 resource "ipam_allocation" "foo" {
-  provider = ipam.lan
-
-  pool_id = ipam_pool.lan.id
+  pool_id = ipam_pool.home.id
   size    = 16
-}
-
-resource "ipam_allocation" "bar" {
-  provider = ipam.lan
-
-  pool_id = ipam_pool.lan.id
-  size    = 24
-}
-
-resource "ipam_allocation" "baz" {
-  provider = ipam.lan
-
-  pool_id = ipam_pool.lan.id
-  size    = 32
 }
 ```
 
