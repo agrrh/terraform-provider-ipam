@@ -104,7 +104,7 @@ func (r *PoolResource) Create(ctx context.Context, req resource.CreateRequest, r
 	// }
 	_, err := r.ipam.NewPrefix(ctx, data.CIDR.ValueString())
 	if err != nil {
-		panic(err)
+		resp.Diagnostics.AddError("API Error Creating Resource", fmt.Sprintf("... details ... %s", err))
 	}
 
 	// For the purposes of this example code, hardcoding a response value to
@@ -173,7 +173,7 @@ func (r *PoolResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 	// provider client data and make a call using it.
 	_, err := r.ipam.DeletePrefix(ctx, data.CIDR.ValueString())
 	if err != nil {
-		panic(err)
+		resp.Diagnostics.AddError("API Error Deleting Resource", fmt.Sprintf("... details ... %s", err))
 	}
 }
 

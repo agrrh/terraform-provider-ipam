@@ -126,7 +126,7 @@ func (r *AllocationResource) Create(ctx context.Context, req resource.CreateRequ
 	// }
 	prefix, err := r.ipam.AcquireChildPrefix(ctx, data.PoolId.ValueString(), uint8(data.Size.ValueInt64()))
 	if err != nil {
-		panic(err)
+		resp.Diagnostics.AddError("API Error Creating Resource", fmt.Sprintf("... details ... %s", err))
 	}
 
 	// For the purposes of this example code, hardcoding a response value to
@@ -203,7 +203,7 @@ func (r *AllocationResource) Delete(ctx context.Context, req resource.DeleteRequ
 	}
 	err := r.ipam.ReleaseChildPrefix(ctx, child)
 	if err != nil {
-		panic(err)
+		resp.Diagnostics.AddError("API Error Deleting Resource", fmt.Sprintf("... details ... %s", err))
 	}
 }
 
