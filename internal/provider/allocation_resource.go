@@ -203,7 +203,7 @@ func (r *AllocationResource) Delete(ctx context.Context, req resource.DeleteRequ
 	}
 	err := r.ipam.ReleaseChildPrefix(ctx, child)
 	if err != nil {
-		resp.Diagnostics.AddError("API Error Deleting Resource" ,fmt.Sprintf("... details ... %s", err))
+		resp.Diagnostics.AddError("API Error Deleting Resource", fmt.Sprintf("... details ... %s", err))
 	}
 }
 
