@@ -2,6 +2,12 @@
 
 ...
 
+## 0.1.1 (October 16, 2023)
+
+FIXES:
+
+- Make provider not ruin whole Terraform run
+
 ## 0.1.0 (October 16, 2023)
 
 FEATURES:
