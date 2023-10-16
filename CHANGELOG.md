@@ -12,5 +12,5 @@ FIXES:
 
 FEATURES:
 
-* **New Resource:** `ipam_pool`
-* **New Resource:** `ipam_allocation`
+- **New Resource:** `ipam_pool`
+- **New Resource:** `ipam_allocation`
