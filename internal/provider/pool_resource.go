@@ -88,6 +88,9 @@ func (r *PoolResource) Configure(ctx context.Context, req resource.ConfigureRequ
 func (r *PoolResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	var data PoolResourceModel
 
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
@@ -122,6 +125,9 @@ func (r *PoolResource) Create(ctx context.Context, req resource.CreateRequest, r
 func (r *PoolResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data PoolResourceModel
 
+	mutex.RLock()
+	defer mutex.RUnlock()
+
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
@@ -145,6 +151,9 @@ func (r *PoolResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 func (r *PoolResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data PoolResourceModel
 
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
@@ -161,6 +170,9 @@ func (r *PoolResource) Update(ctx context.Context, req resource.UpdateRequest, r
 
 func (r *PoolResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data PoolResourceModel
+
+	mutex.Lock()
+	defer mutex.Unlock()
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)

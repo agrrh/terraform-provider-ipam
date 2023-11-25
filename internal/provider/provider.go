@@ -5,6 +5,7 @@ package provider
 
 import (
 	"context"
+	"sync"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
@@ -17,6 +18,9 @@ import (
 
 // Ensure IPAMProvider satisfies various provider interfaces.
 var _ provider.Provider = &IPAMProvider{}
+
+// Global storage-access lock to use within this plugin
+var mutex sync.RWMutex
 
 // IPAMProvider defines the provider implementation.
 type IPAMProvider struct {

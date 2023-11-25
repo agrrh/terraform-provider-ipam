@@ -110,6 +110,9 @@ func (r *AllocationResource) Configure(ctx context.Context, req resource.Configu
 func (r *AllocationResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	var data AllocationResourceModel
 
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
@@ -145,6 +148,9 @@ func (r *AllocationResource) Create(ctx context.Context, req resource.CreateRequ
 func (r *AllocationResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data AllocationResourceModel
 
+	mutex.RLock()
+	defer mutex.RUnlock()
+
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
@@ -171,6 +177,9 @@ func (r *AllocationResource) Read(ctx context.Context, req resource.ReadRequest,
 func (r *AllocationResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data AllocationResourceModel
 
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
@@ -187,6 +196,9 @@ func (r *AllocationResource) Update(ctx context.Context, req resource.UpdateRequ
 
 func (r *AllocationResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data AllocationResourceModel
+
+	mutex.Lock()
+	defer mutex.Unlock()
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
