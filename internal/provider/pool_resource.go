@@ -98,24 +98,14 @@ func (r *PoolResource) Create(ctx context.Context, req resource.CreateRequest, r
 		return
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
 	_, err := r.ipam.NewPrefix(ctx, data.CIDR.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError("API Error Creating Resource", fmt.Sprintf("... details ... %s", err))
 	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
 	data.Id = data.CIDR
 
 	// Write logs using the tflog package
-	// Documentation: https://terraform.io/plugin/log
 	tflog.Trace(ctx, "created a resource")
 
 	// Save data into Terraform state
@@ -135,8 +125,6 @@ func (r *PoolResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 		return
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
 	prefix := r.ipam.PrefixFrom(ctx, data.CIDR.ValueString())
 
 	if prefix != nil {
@@ -161,9 +149,6 @@ func (r *PoolResource) Update(ctx context.Context, req resource.UpdateRequest, r
 		return
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
-
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -181,8 +166,6 @@ func (r *PoolResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 		return
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
 	_, err := r.ipam.DeletePrefix(ctx, data.CIDR.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError("API Error Deleting Resource", fmt.Sprintf("... details ... %s", err))
