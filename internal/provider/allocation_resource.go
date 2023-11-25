@@ -120,20 +120,11 @@ func (r *AllocationResource) Create(ctx context.Context, req resource.CreateRequ
 		return
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
 	prefix, err := r.ipam.AcquireChildPrefix(ctx, data.PoolId.ValueString(), uint8(data.Size.ValueInt64()))
 	if err != nil {
 		resp.Diagnostics.AddError("API Error Creating Resource", fmt.Sprintf("... details ... %s", err))
 	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
 	data.Id = types.StringValue(prefix.Cidr)
 	data.CIDR = types.StringValue(prefix.Cidr)
 
@@ -158,8 +149,6 @@ func (r *AllocationResource) Read(ctx context.Context, req resource.ReadRequest,
 		return
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
 	parentPrefix := r.ipam.PrefixFrom(ctx, data.PoolId.ValueString())
 
 	if parentPrefix == nil {
@@ -187,9 +176,6 @@ func (r *AllocationResource) Update(ctx context.Context, req resource.UpdateRequ
 		return
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
-
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -207,8 +193,6 @@ func (r *AllocationResource) Delete(ctx context.Context, req resource.DeleteRequ
 		return
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
 	child := &goipam.Prefix{
 		Cidr:       data.CIDR.ValueString(),
 		ParentCidr: data.PoolId.ValueString(),
