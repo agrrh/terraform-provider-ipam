@@ -149,9 +149,9 @@ func (r *AllocationResource) Read(ctx context.Context, req resource.ReadRequest,
 		return
 	}
 
-	parentPrefix := r.ipam.PrefixFrom(ctx, data.PoolId.ValueString())
+	parentPrefix, err := r.ipam.PrefixFrom(ctx, data.PoolId.ValueString())
 
-	if parentPrefix == nil {
+	if err != nil || parentPrefix == nil {
 		return
 	}
 

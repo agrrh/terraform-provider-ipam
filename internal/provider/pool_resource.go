@@ -125,7 +125,11 @@ func (r *PoolResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 		return
 	}
 
-	prefix := r.ipam.PrefixFrom(ctx, data.CIDR.ValueString())
+	prefix, err := r.ipam.PrefixFrom(ctx, data.CIDR.ValueString())
+
+	if err != nil {
+		return
+	}
 
 	if prefix != nil {
 		data.CIDR = types.StringValue(prefix.Cidr)
