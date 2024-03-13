@@ -2,6 +2,18 @@
 
 ...
 
+## 0.1.3 (March 12, 2024)
+
+FEATURES:
+
+- Update number of libraries
+
+## 0.1.2 (November 25, 2023)
+
+FIXES:
+
+- Add provider-wide lock to evade race conditions (#3)
+
 ## 0.1.1 (October 16, 2023)
 
 FIXES:
