@@ -19,7 +19,7 @@ import (
 // Ensure IPAMProvider satisfies various provider interfaces.
 var _ provider.Provider = &IPAMProvider{}
 
-// Global storage-access lock to use within this plugin
+// Global storage-access lock to use within this plugin.
 var mutex sync.RWMutex
 
 // IPAMProvider defines the provider implementation.
