@@ -42,7 +42,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - run: apt install terraform
+      - uses: hashicorp/setup-terraform@v3
       - run: go generate ./...
       - name: git diff
         run: |
