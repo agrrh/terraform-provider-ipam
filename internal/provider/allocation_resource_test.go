@@ -54,7 +54,7 @@ resource "ipam_pool" "test" {
 
 resource "ipam_allocation" %[1]q {
   pool_id = ipam_pool.test.id
-	size    = %[2]d
+  size    = %[2]d
 }
 `, name, configurableAttribute)
 }
