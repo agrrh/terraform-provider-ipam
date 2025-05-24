@@ -61,7 +61,7 @@ func (r *AllocationResource) Schema(ctx context.Context, req resource.SchemaRequ
 			},
 			"size": schema.Int64Attribute{
 				MarkdownDescription: "Size of allocation",
-				Required:            true,
+				Optional:            true,
 				Validators: []validator.Int64{
 					int64validator.Between(8, 32),
 				},
@@ -115,6 +115,10 @@ func (r *AllocationResource) Create(ctx context.Context, req resource.CreateRequ
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+
+	if data.Size.IsNull() {
+		data.Size = types.Int64Value(32)
+	}
 
 	if resp.Diagnostics.HasError() {
 		return

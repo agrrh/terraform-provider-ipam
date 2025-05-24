@@ -34,7 +34,7 @@ resource "ipam_pool" "internal_az1" {
 
 resource "ipam_allocation" "host_foo" {
   pool_id = ipam_pool.internal_az1.id
-  size    = 32
+  # size defaults to 32, so may be omitted for single hosts
 }
 
 # ... and so on
