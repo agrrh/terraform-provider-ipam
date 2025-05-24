@@ -1,8 +1,8 @@
 # Terraform IPAM Provider
 
-Dead simple IPAM provider, which stores pools and allocation in local file.
+Dead simple IPAM provider, which stores IP pools and allocations in local file.
 
-Works for those who'd like to use Git repository as Source of Truth for IP management.
+Works for those who'd like to use Git repository as [Source of Truth](https://en.wikipedia.org/wiki/Single_source_of_truth) for IP management.
 
 ## Usage
 
@@ -11,18 +11,30 @@ provider "ipam" {
   file = "mycorp.ipam.json"
 }
 
-resource "ipam_pool" "mycorp_internal" {
+resource "ipam_pool" "internal_network" {
   cidr = "10.0.0.0/8"
 }
 
-resource "ipam_allocation" "zoneA" {
-  pool_id = ipam_pool.mycorp_internal.id
-  size    = 16
+#
+# Availability zone
+#
+
+resource "ipam_allocation" "internal_az1" {
+  pool_id = ipam_pool.internal.id
+  size    = 10
 }
 
-resource "ipam_allocation" "zoneB" {
-  pool_id = ipam_pool.mycorp_internal.id
-  size    = 16
+# Also make it a pool to allocate from this particular IP range
+resource "ipam_pool" "internal_az1" {
+  cidr = ipam_allocation.internal_az1.cidr
+}
+
+# Single hosts
+
+
+resource "ipam_allocation" "host_foo" {
+  pool_id = ipam_pool.internal_az1.id
+  size    = 32
 }
 
 # ... and so on
