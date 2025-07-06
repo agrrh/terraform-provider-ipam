@@ -29,6 +29,9 @@ resource "ipam_allocation" "foo" {
 ### Required
 
 - `pool_id` (String) Pool identifier
+
+### Optional
+
 - `size` (Number) Size of allocation
 
 ### Read-Only
